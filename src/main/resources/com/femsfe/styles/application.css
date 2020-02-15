@@ -1,0 +1,220 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#BTN_CPOINT{
+	-fx-background-image: url(../resources/icon/point_24x24.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CLINE{
+	-fx-background-image: url(../resources/icon/line_24x24.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CPOLYLINE{
+	-fx-background-image: url(../resources/icon/polyline_16x16.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CPOLYGON{
+	-fx-background-image: url(../resources/icon/polygon_24x24.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CRECTANGLE{
+	-fx-background-image: url(../resources/icon/rectangle_24x24.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CCIRCLE{
+	-fx-background-image: url(../resources/icon/circle_24x24.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CARC{
+	-fx-background-image: url(../resources/icon/arc_16x16.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CBEZIER{
+	-fx-background-image: url(../resources/icon/bezier_curve_16x16.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+} 
+#BTN_CNFACE{
+	-fx-background-image: url(../resources/icon/normal_face_32x32.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 2px 3px   ; 
+}
+#BTN_CBFACE{
+	-fx-background-image: url(../resources/icon/hole_face_32x32.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 2px 3px  ; 
+}
+
+#BTN_CEFACE{
+	-fx-background-image: url(../resources/icon/external_face_32x32.png) ;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 2px 3px  ; 
+}
+
+#btnSelectGeometry{
+	-fx-background-image:url(../resources/icon/select_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnRemoveGeometry{
+	-fx-background-image:url(../resources/icon/erase_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	
+}
+#btnHistogram{
+	-fx-background-image:url(../resources/icon/histogram_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+	
+}
+#TGLBTN_ZOOM_IN{
+	-fx-background-image:url(../resources/icon/zoom_plus_32x32.png); 
+}
+#TGLBTN_ZOOM_OUT{
+	-fx-background-image:url(../resources/icon/zoom_less_32x32.png); 
+}
+#TGLBTN_PAN{
+	-fx-background-image:url(../resources/icon/move_32x32.png); 
+}
+#BTN_EXPAND{
+	-fx-background-image:url(../resources/icon/expand_24x24.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+#BTN_LINES_INTER{
+	-fx-background-image:url(../resources/icon/lines_inter_32x32.png); 
+}
+#BTN_LINES_CIRCLE_INTER{
+	-fx-background-image:url(../resources/icon/lines_circle_inter_32x32.png); 
+}
+#BTN_LINES_ARC_INTER{
+	-fx-background-image:url(../resources/icon/line_arc_inter_32x32.png); 
+}
+#BTN_CIRCLES_INTER{
+	-fx-background-image:url(../resources/icon/circles_inter_32x32.png); 
+}
+#tglBtnBorderSelection{
+	-fx-background-image:url(../resources/icon/border_32x32.png);
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;  
+}
+#tglBtnCreatePort{
+	-fx-background-image:url(../resources/icon/port_32x32.png);
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;  
+}
+#BTN_ASSIGN_MATERIAL{
+	-fx-background-image:url(../resources/icon/select_face_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnExecute{
+	-fx-background-image:url(../resources/icon/execute_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#TGLBTN_COLORMAP{
+	-fx-background-image:url(../resources/icon/colormap_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#TGLBTN_ISOLINE{
+	-fx-background-image:url(../resources/icon/isolines_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#TGLBTN_ARROW{
+	-fx-background-image:url(../resources/icon/arrow_field_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnPlotLineResult{
+	-fx-background-image:url(../resources/icon/line_chart_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+
+#btnDiscretizeModel{
+	-fx-background-image:url(../resources/icon/meshing_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}#btnLaplacianSmooth{
+	-fx-background-image:url(../resources/icon/laplacian_smooth_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnClearMesh{
+	-fx-background-image:url(../resources/icon/clear_mesh_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#BTN_LINE_DIVISION{
+	-fx-background-image:url(../resources/icon/line_division_24x24.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+
+#BTN_CIRCLE_DIVISION{
+	-fx-background-image:url(../resources/icon/circle_division_24x24.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#BTN_POINTS_DISTANCE{
+	-fx-background-image:url(../resources/icon/point_distance_24x24.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnNewMaterial{
+	-fx-background-image:url(../resources/icon/new_material_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnDeleteMaterial{
+	-fx-background-image:url(../resources/icon/delete_material_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnEditMaterial{
+	-fx-background-image:url(../resources/icon/edit_material_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+#btnExportMesh{
+	-fx-background-image:url(../resources/icon/export_mesh_32x32.png); 
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center; 
+}
+
+#BTN_REMOVE_POINTS .label{
+		-fx-graphic: url(../resources/icon/point_16x16.png);
+}
+#BTN_REMOVE_LINES .label{
+		-fx-graphic: url(../resources/icon/line_16x16.png);
+}
+#BTN_REMOVE_CIRCLES .label{
+		-fx-graphic: url(../resources/icon/circle_16x16.png);
+}
+#BTN_REMOVE_ARCS .label{
+		-fx-graphic: url(../resources/icon/arc_16x16.png);
+}
+#BTN_REMOVE_BEZIER .label{
+		-fx-graphic: url(../resources/icon/bezier_curve_16x16.png);
+}
+#BTN_REMOVE_FACES .label{
+		-fx-graphic: url(../resources/icon/external_face_16x16.png);
+}
+
+#menuItemDefineWave .label{
+		-fx-graphic: url(../resources/icon/wave_16x16.png);
+}
+#menuItemDefineUnit .label{
+		-fx-graphic: url(../resources/icon/unit_16x16.png);
+}
+
