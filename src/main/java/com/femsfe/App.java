@@ -5,8 +5,8 @@ import java.net.URL;
 import com.femsfe.ComplexNumber.ComplexNumber;
 import com.femsfe.Geometrias.Material;
 import java.io.IOException;
-import javafx.application.Application;
 
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -63,7 +63,6 @@ public class App extends Application{
             RepositoryMaterials.addMaterial(new Material("Air", new ComplexNumber(1, 0), new ComplexNumber(1, 0)));
             RepositoryMaterials.addMaterial(new Material("Silicon", new ComplexNumber(12, 0), new ComplexNumber(1, 0)));
 
-            @SuppressWarnings("unchecked")
             ComboBox<String> cbMaterial = (ComboBox<String>) root.lookup("#comboBoxMaterial");
             RepositoryMaterials.getList().forEach((material) -> {
                 cbMaterial.getItems().add(material.getName());
@@ -71,7 +70,7 @@ public class App extends Application{
             cbMaterial.getSelectionModel().select(0);
 
             fxglPanel.setScene(scene);
-//			fxglPanel.setCursor(null);
+            fxglPanel.setCursor(null);
 
             SplitPane sPaneLeft = (SplitPane) root.lookup("#splitPaneLeft");
             sPaneLeft.getItems().remove(0);

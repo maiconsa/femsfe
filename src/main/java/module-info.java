@@ -1,5 +1,5 @@
 module femsfe {
-    requires java.desktop;
+    /*requires java.desktop;*/
     requires jblas;
     requires exp4j;
 
@@ -12,5 +12,4 @@ module femsfe {
     opens com.femsfe to javafx.fxml;
 
     exports com.femsfe;
-
 }
