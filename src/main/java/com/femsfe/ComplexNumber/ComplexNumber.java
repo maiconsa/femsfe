@@ -1,7 +1,5 @@
 package com.femsfe.ComplexNumber;
 
-import java.util.Arrays;
-
 public class ComplexNumber {
 	private float real = Float.NaN;
 	

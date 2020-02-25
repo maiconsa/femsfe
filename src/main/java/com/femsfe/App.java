@@ -3,7 +3,9 @@ package com.femsfe;
 import java.net.URL;
 
 import com.femsfe.ComplexNumber.ComplexNumber;
-import com.femsfe.Geometrias.Material;
+import com.femsfe.Geometries.Material;
+import com.femsfe.dialogs.ExceptionDialog;
+import com.femsfe.enums.ButtonsID;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -102,6 +104,7 @@ public class App extends Application{
             infoArea.appendText("Free Memory:" + Runtime.getRuntime().freeMemory() / 1024000 + "MB\n");
         } catch (IOException e) {
             e.printStackTrace();
+            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
         }
     }
 

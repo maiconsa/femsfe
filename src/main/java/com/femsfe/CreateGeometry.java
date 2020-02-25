@@ -1,6 +1,15 @@
 package com.femsfe;
 
-import com.femsfe.Geometrias.*;
+import com.femsfe.Geometries.Arc2D;
+import com.femsfe.Geometries.Circle2D;
+import com.femsfe.Geometries.Geometry2D;
+import com.femsfe.enums.GeometryType;
+import com.femsfe.Geometries.Polygon2D;
+import com.femsfe.Geometries.Line2D;
+import com.femsfe.Geometries.BezierCurve2D;
+import com.femsfe.Geometries.Rectangle2D;
+import com.femsfe.Geometries.Polyline2D;
+import com.femsfe.Geometries.Point2D;
 
 
 public final class CreateGeometry  {

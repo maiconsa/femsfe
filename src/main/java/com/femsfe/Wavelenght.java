@@ -1,6 +1,6 @@
 package com.femsfe;
 
-import com.femsfe.Geometrias.Units;
+import com.femsfe.enums.Units;
 
 public class Wavelenght {
 	private float value = Float.NaN;

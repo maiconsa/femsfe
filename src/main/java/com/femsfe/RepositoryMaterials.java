@@ -3,7 +3,7 @@ package com.femsfe;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.femsfe.Geometrias.Material;
+import com.femsfe.Geometries.Material;
 
 public final class RepositoryMaterials {
 	private static List<Material> list = new ArrayList<Material>();

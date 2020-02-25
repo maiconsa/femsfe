@@ -1,9 +1,18 @@
  package com.femsfe;
+import com.femsfe.Geometries.Arc2D;
+import com.femsfe.Geometries.Geometry2D;
+import com.femsfe.enums.GeometryType;
+import com.femsfe.Geometries.Circle2D;
+import com.femsfe.Geometries.Border2D;
+import com.femsfe.Geometries.Face2D;
+import com.femsfe.Geometries.Line2D;
+import com.femsfe.Geometries.Rectangle2D;
+import com.femsfe.Geometries.BezierCurve2D;
+import com.femsfe.Geometries.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import  com.femsfe.Geometrias.*;
 /**
  * That class storage all the geometry selected by the user. 
  * @author Maicon Alc�ntara
