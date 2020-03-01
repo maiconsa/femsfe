@@ -1,4 +1,4 @@
-package com.femsfe;
+package com.femsfe.components;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;

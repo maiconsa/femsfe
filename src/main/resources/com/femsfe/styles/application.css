@@ -69,10 +69,9 @@
 	
 }
 #btnHistogram{
-	-fx-background-image:url(../con/histogram_32x32.png); 
+	-fx-background-image:url(../icon/histogram_32x32.png); 
 	-fx-background-repeat: no-repeat;
-	-fx-background-position: center; 
-	
+	-fx-background-position: center; 	
 }
 #TGLBTN_ZOOM_IN{
 	-fx-background-image:url(../icon/zoom_plus_32x32.png); 

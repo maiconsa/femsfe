@@ -50,7 +50,7 @@ import com.femsfe.Geometries.Polygon2D;
 import com.femsfe.Geometries.Polyline2D;
 import com.femsfe.Geometries.Triangle2D;
 import com.femsfe.IntersectGeometry;
-import com.femsfe.NumberTextField;
+import com.femsfe.components.NumberTextField;
 import com.femsfe.enums.Units;
 import com.femsfe.PML.PMLRegions;
 import com.femsfe.Project;
@@ -59,6 +59,7 @@ import com.femsfe.SelectGeometry;
 import com.femsfe.Triangulation.ConectivityList;
 import com.femsfe.Triangulation.ConstrainedDelaunayTriangulation;
 import com.femsfe.Wavelenght;
+import com.femsfe.dialogs.ExceptionDialog;
 import com.femsfe.enums.ButtonsID;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -734,7 +735,7 @@ public class MainController implements Initializable {
             Alert alert = new Alert(AlertType.WARNING);
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/memory_32x32.png")));
-            alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/memory_32x32.png"))));
+            alert.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/memory_32x32.png"))));
 
             alert.setTitle("Withou Memoryt");
             alert.setHeaderText("Memory Heap Full");
@@ -989,7 +990,7 @@ public class MainController implements Initializable {
         numberContourDialog.setTitle("Choose Dialog for the interaction Number ");
         numberContourDialog.setHeaderText("Select the interaction number below");
         numberContourDialog.setContentText("Interaction Number:");
-        numberContourDialog.setGraphic(new ImageView(this.getClass().getResource("icon/laplacian_smooth_32x32.png").toString()));
+        numberContourDialog.setGraphic(new ImageView(App.class.getResource("icon/laplacian_smooth_32x32.png").toString()));
 
         Stage stage = (Stage) numberContourDialog.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(App.class.getResource("icon/laplacian_smooth_24x24.png").toString()));
@@ -1505,7 +1506,7 @@ public class MainController implements Initializable {
         if (Project.getMesh() == null) {
             Alert alert = new Alert(AlertType.WARNING);
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/meshing_32x32.png")));
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/meshing_32x32.png")));
 
             alert.setTitle("Mesh Not Detect");
             alert.setHeaderText("Please discretize the domain");
@@ -1516,7 +1517,7 @@ public class MainController implements Initializable {
         Dialog<Boolean> histogram = new Dialog<>();
         histogram.setTitle("Hitogram quality mesh");
         Stage stage = (Stage) histogram.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/histogram_32x32.png")));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/histogram_32x32.png")));
 
         ButtonType okButtonType = new ButtonType("OK", ButtonData.OK_DONE);
         histogram.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
@@ -1593,30 +1594,27 @@ public class MainController implements Initializable {
         meshInfo.add(new Label(String.valueOf(Project.getMesh().nodeSize())), 1, 2);
 
         Button saveHistogram = new Button();
-        saveHistogram.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // TODO Auto-generated method stub
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"));
-                File output = fileChooser.showSaveDialog(histogram.getOwner());
-                WritableImage wi = barChart.snapshot(new SnapshotParameters(), null);
-                try {
-                    if (output != null) {
-                        BufferedImage image = SwingFXUtils.fromFXImage(wi, null);
-                        BufferedImage imageRGB = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.OPAQUE);
-
-                        Graphics2D graphics = imageRGB.createGraphics();
-                        graphics.drawImage(image, 0, 0, null);
-                        ImageIO.write(imageRGB, fileChooser.getSelectedExtensionFilter().getDescription(), output);
-                    }
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+        saveHistogram.setOnAction((ActionEvent event) -> {
+            // TODO Auto-generated method stub
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"));
+            File output = fileChooser.showSaveDialog(histogram.getOwner());
+            WritableImage wi = barChart.snapshot(new SnapshotParameters(), null);
+            try {
+                if (output != null) {
+                    BufferedImage image = SwingFXUtils.fromFXImage(wi, null);
+                    BufferedImage imageRGB = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.OPAQUE);
+                    
+                    Graphics2D graphics = imageRGB.createGraphics();
+                    graphics.drawImage(image, 0, 0, null);
+                    ImageIO.write(imageRGB, fileChooser.getSelectedExtensionFilter().getDescription(), output);
                 }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         });
-        saveHistogram.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/camera_32x32.png"))));
+        saveHistogram.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/camera_32x32.png"))));
         labelMeshInfo = new Label("Save Image");
         labelMeshInfo.setFont(Font.font(labelMeshInfo.getFont().getFamily(), FontWeight.BOLD, labelMeshInfo.getFont().getSize()));
 
@@ -1662,63 +1660,53 @@ public class MainController implements Initializable {
             Button exportData = new Button();
             ToolBar toolbar = new ToolBar(saveGraph, exportData);
             exportData.setTooltip(new Tooltip("Export Data"));
-            exportData.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/export_16x16.png"))));
-            exportData.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.setTitle("Export Data Line..");
-                    fileChooser.setInitialFileName("PlotLine2D");
-                    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("txt", "*.txt"), new FileChooser.ExtensionFilter("dat", "*.dat"));
-                    File output = fileChooser.showSaveDialog(lpr.getOwner());
-                    try {
-                        if (output == null) {
-                            return;
-                        }
-                        BufferedWriter bw = Files.newBufferedWriter(Paths.get(output.getAbsolutePath()), StandardCharsets.UTF_8);
-                        ArrayList<Point2D> pts = lpr.getPoints();
-                        ArrayList<Double> values = lpr.getValues();
-                        bw.append("X\tY\tVALUE");
-                        bw.newLine();
-                        for (int i = 0; i < pts.size(); i++) {
-                            bw.append(pts.get(i).getX() + " \t" + pts.get(i).getY() + " \t" + values.get(i));
-                            bw.newLine();
-                        }
-                        bw.close();
-
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+            exportData.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/export_16x16.png"))));
+            exportData.setOnAction((ActionEvent event) -> {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Export Data Line..");
+                fileChooser.setInitialFileName("PlotLine2D");
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("txt", "*.txt"), new FileChooser.ExtensionFilter("dat", "*.dat"));
+                File output = fileChooser.showSaveDialog(lpr.getOwner());
+                try {
+                    if (output == null) {
+                        return;
                     }
-
+                    BufferedWriter bw = Files.newBufferedWriter(Paths.get(output.getAbsolutePath()), StandardCharsets.UTF_8);
+                    ArrayList<Point2D> pts = lpr.getPoints();
+                    ArrayList<Double> values = lpr.getValues();
+                    bw.append("X\tY\tVALUE");
+                    bw.newLine();
+                    for (int i = 0; i < pts.size(); i++) {
+                        bw.append(pts.get(i).getX() + " \t" + pts.get(i).getY() + " \t" + values.get(i));
+                        bw.newLine();
+                    }
+                    bw.close();
+                    
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    ExceptionDialog exceptionDialog = new ExceptionDialog(e);
                 }
             });
 
             saveGraph.setTooltip(new Tooltip("Save Line Graph 2D"));
-            saveGraph.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/camera_16x16.png"))));
-            saveGraph.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"));
-                    File output = fileChooser.showSaveDialog(lpr.getOwner());
-                    WritableImage wi = lineChart.snapshot(new SnapshotParameters(), null);
-                    try {
-                        if (output != null) {
-                            BufferedImage image = SwingFXUtils.fromFXImage(wi, null);
-
-                            BufferedImage imageRGB = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.OPAQUE);
-                            Graphics2D graphics = (Graphics2D) imageRGB.getGraphics();
-                            graphics.drawImage(image, 0, 0, null);
-                            ImageIO.write(imageRGB, fileChooser.getSelectedExtensionFilter().getDescription(), output);
-                        }
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+            saveGraph.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/camera_16x16.png"))));
+            saveGraph.setOnAction((ActionEvent event) -> {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"));
+                File output = fileChooser.showSaveDialog(lpr.getOwner());
+                WritableImage wi = lineChart.snapshot(new SnapshotParameters(), null);
+                try {
+                    if (output != null) {
+                        BufferedImage image = SwingFXUtils.fromFXImage(wi, null);
+                        
+                        BufferedImage imageRGB = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.OPAQUE);
+                        Graphics2D graphics = (Graphics2D) imageRGB.getGraphics();
+                        graphics.drawImage(image, 0, 0, null);
+                        ImageIO.write(imageRGB, fileChooser.getSelectedExtensionFilter().getDescription(), output);
                     }
-
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    ExceptionDialog exceptionDialog = new ExceptionDialog(e);
                 }
             });
 
@@ -1857,21 +1845,21 @@ public class MainController implements Initializable {
                     case BTN_CNFACE:
                         face.setTypeFace(Face2D.NORMAL);
                         alert.setContentText("Normal Face Created!!!!");
-                        alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/normal_face_32x32.png"))));
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/normal_face_32x32.png")));
+                        alert.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/normal_face_32x32.png"))));
+                        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/normal_face_32x32.png")));
                         break;
                     case BTN_CBFACE:
                         face.setTypeFace(Face2D.HOLE);
                         face.setMaterial(null);
                         alert.setContentText("Hole Face Created!!!!");
-                        alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/hole_face_32x32.png"))));
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/hole_face_32x32.png")));
+                        alert.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/hole_face_32x32.png"))));
+                        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/hole_face_32x32.png")));
                         break;
                     case BTN_CEFACE:
                         face.setTypeFace(Face2D.EXTERNAL);
                         alert.setContentText("External Face Created!!!!");
-                        alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/external_face_32x32.png"))));
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/external_face_32x32.png")));
+                        alert.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/external_face_32x32.png"))));
+                        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/external_face_32x32.png")));
                         BTN_CEFACE.setDisable(true);
                         break;
                     default:
@@ -1940,7 +1928,7 @@ public class MainController implements Initializable {
             textInput.setTitle("Circle Division");
             textInput.setHeaderText("Enter with the division number");
             textInput.setContentText("Division Number:");
-            textInput.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/circle_division_64x64.png"))));
+            textInput.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/circle_division_64x64.png"))));
             Optional<String> result = textInput.showAndWait();
             if (result.isPresent()) {
                 int n = Integer.parseInt(result.get());
@@ -1970,17 +1958,12 @@ public class MainController implements Initializable {
             textInput.setTitle("Line Division");
             textInput.setHeaderText("Enter with the division number");
             textInput.setContentText("Division Number:");
-            textInput.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icon/line_division_64x64.png"))));
-            textInput.getEditor().textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue,
-                        String newValue) {
-                    if (newValue.trim().isEmpty()) {
-                        Node okBtn = (Node) textInput.getDialogPane().lookupButton(ButtonType.OK);
-                        okBtn.setDisable(true);
-                    }
+            textInput.setGraphic(new ImageView(new Image(App.class.getResourceAsStream("icon/line_division_64x64.png"))));
+            textInput.getEditor().textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                if (newValue.trim().isEmpty()) {
+                    Node okBtn = (Node) textInput.getDialogPane().lookupButton(ButtonType.OK);
+                    okBtn.setDisable(true);
                 }
-
             });
 
             Optional<String> result = textInput.showAndWait();
@@ -2077,9 +2060,10 @@ public class MainController implements Initializable {
             Optional<String> result = bcPotential.showAndWait();
 
             if (result.isPresent()) {
-                for (Face2D face : faces) {
+                faces.forEach((face) -> {
                     face.spaceDensityFunction = new SpaceDensityFunction(result.get());
-                };
+                });
+;
             }
             SelectGeometry.clear();
         }
@@ -2190,7 +2174,7 @@ public class MainController implements Initializable {
         Alert alert = new Alert(AlertType.WARNING);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/meshing_32x32.png")));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/meshing_32x32.png")));
         alert.setTitle("Mesh Not Detect");
         alert.setHeaderText("Please discretize the domain");
         alert.setContentText("Please, you have to discretize the domain before compute analysis");
@@ -2201,7 +2185,7 @@ public class MainController implements Initializable {
         Alert alert = new Alert(AlertType.WARNING);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon/meshing_32x32.png")));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("icon/meshing_32x32.png")));
         alert.setTitle("Simulation not detected");
         alert.setHeaderText("Please compute FEM process");
         alert.setContentText("Please, you have to compute analysis before see results");

@@ -1,26 +1,46 @@
-package com.femsfe;
+package com.femsfe.components;
 
+import com.femsfe.CreateGeometry;
 import com.femsfe.Geometries.BezierCurve2D;
 import com.femsfe.enums.GeometryType;
 import com.femsfe.Geometries.Polygon2D;
 import com.femsfe.Geometries.Polyline2D;
-import javafx.event.EventHandler;
+import com.femsfe.Project;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 
-public class PromptComannd extends javafx.scene.control.TextArea {
+public class Console extends TextArea {
 
     int caretPosition = -1;
     int textSize = -1;
 
-    public PromptComannd() {
+//    enum Commands{
+//        CreatePoint(GeometryType.POINT,"^\d,\d$","The input must be like >> xCoord,yCoord"),
+//        CreateLine(GeometryType.LINE),
+//        CreatePolylines(GeometryType.POLYLINE),
+//        CreateRect(GeometryType.RECTANGLE),
+//        CreatePolygon(GeometryType.POLYGON),
+//        CreacleCircle(GeometryType.CIRCLE),
+//        CreacleArc(GeometryType.ARC),
+//        CreateBezierCurve(GeometryType.BEZIER)
+//        ;
+//
+//        private GeometryType type;
+//        private String inputFormat;
+//        private String descString;
+//        private Commands(GeometryType type,String inputFormat,String descriptionInput) {
+//               this.type = type;
+//        }
+//        
+//    }
+    public Console() {
         this.setId("promptComannd");
         this.appendText(">> ");
-        //setFocused(true);
-
         setOnKeyReleased((KeyEvent event) -> {
             caretPosition = getCaretPosition();
             textSize = getText().length();
-
+           
+            this.end();
             switch (event.getCode()) {
                 case ENTER:
                     if (caretPosition == textSize) {
@@ -32,6 +52,7 @@ public class PromptComannd extends javafx.scene.control.TextArea {
                     break;
             }
         });
+        
 
     }
 
@@ -56,7 +77,6 @@ public class PromptComannd extends javafx.scene.control.TextArea {
     @Override
     public void deleteText(int start, int end) {
         String text = getText(start, end);
-
         if (!text.equals(">")) {
             super.deleteText(start, end);
         }
@@ -131,7 +151,6 @@ public class PromptComannd extends javafx.scene.control.TextArea {
                 if (coords.length == 2) {
                     x = Float.parseFloat(coords[0]);
                     y = Float.parseFloat(coords[1]);
-
                     CreateGeometry.addPoint(x, y);
                     appendText(">> Point Created(" + x + "," + y + ")\n");
                     appendText(">>  ");
@@ -254,7 +273,7 @@ public class PromptComannd extends javafx.scene.control.TextArea {
                     BezierCurve2D curve = (BezierCurve2D) CreateGeometry.getGeometry();
                     Project.addGeometry(curve);
                     CreateGeometry.reset();
-                    appendText(">> B�zier Curve Created\n");
+                    appendText(">> Bezier Curve Created\n");
                     appendText(">>");
                 } else {
                     x = Float.parseFloat(coords[0]);

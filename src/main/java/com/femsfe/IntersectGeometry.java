@@ -2,7 +2,6 @@ package com.femsfe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -216,20 +215,20 @@ public class IntersectGeometry {
     }
 
     private static List<Geometry2D> segmentsCircle(List<Line2D> segments, Circle2D circle2d) {
-        List<Geometry2D> newGeometryies = new Vector<>();
+        List<Geometry2D> newGeometryies = new ArrayList<>();
         boolean hasIntersection = false;
         for (Line2D line2d : segments) {
-            Point2D[] intersection = circle2d.intersection(line2d);
-            if (intersection != null) {
-                for (int i = 0; i < intersection.length; i++) {
-                    line2d.addIntersection(intersection[i]);
-                    circle2d.addIntersectionPoint(intersection[i]);
+            Point2D[] intersections = circle2d.intersection(line2d);
+            if (null == intersections) {
+                line2d.deselectThis();
+                newGeometryies.add(line2d);
+            } else {
+                for (Point2D intersection1 : intersections) {
+                    line2d.addIntersection(intersection1);
+                    circle2d.addIntersectionPoint(intersection1);
                 }
                 newGeometryies.addAll(line2d.getLinesFromInterPoints());
                 hasIntersection = true;
-            } else {
-                line2d.deselectThis();
-                newGeometryies.add(line2d);
             }
         }
         if (hasIntersection) {
@@ -237,7 +236,7 @@ public class IntersectGeometry {
             return newGeometryies;
         } else {
             newGeometryies.clear();
-            return new Vector<>(0);
+            return new ArrayList<>();
         }
     }
 

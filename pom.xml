@@ -89,7 +89,7 @@
 
                 <configuration>
                     <launcher>launcher</launcher>
-                    <mainClass>femsfe/com.femsfe.App</mainClass>
+                    <mainClass>com.femsfe.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>

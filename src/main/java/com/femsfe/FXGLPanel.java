@@ -40,7 +40,7 @@ import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
 
-public class FXGLPanel extends SwingNode implements GLEventListener, MouseInputListener {
+public final class FXGLPanel extends SwingNode implements GLEventListener, MouseInputListener {
 
     public GLJPanel glPanel;
     private FPSAnimator animator;
@@ -77,12 +77,8 @@ public class FXGLPanel extends SwingNode implements GLEventListener, MouseInputL
     }
 
     private void createSwingNode() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                setContent(glPanel);
-            }
+        SwingUtilities.invokeLater(() -> {
+            setContent(glPanel);
         });
     }
 

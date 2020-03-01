@@ -14,7 +14,7 @@ import com.femsfe.Geometries.Point2D;
 import com.femsfe.Geometries.Triangle2D;
 import com.femsfe.Triangulation.ConectivityList;
 import com.femsfe.Triangulation.Triangulation;
-import com.femsfe.NumberTextField;
+import com.femsfe.components.NumberTextField;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.Node;

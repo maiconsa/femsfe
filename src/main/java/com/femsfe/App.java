@@ -4,6 +4,9 @@ import java.net.URL;
 
 import com.femsfe.ComplexNumber.ComplexNumber;
 import com.femsfe.Geometries.Material;
+import com.femsfe.components.GeometryLabelItem;
+import com.femsfe.components.Console;
+import com.femsfe.components.TreeViewProject;
 import com.femsfe.dialogs.ExceptionDialog;
 import com.femsfe.enums.ButtonsID;
 import java.io.IOException;
@@ -32,7 +35,7 @@ public class App extends Application{
     public static Parent root;
     public static Scene scene;
     public static TreeView<GeometryLabelItem> treeView = new TreeViewProject();
-    private static final PromptComannd prompt = new PromptComannd();
+    private static final Console prompt = new Console();
     private static final TextArea infoArea = new TextArea();
     private static Stage primaryStage;
     public static TabPane centralTopTabPane;
@@ -129,7 +132,7 @@ public class App extends Application{
         return (ToggleButton) root.lookup("#" + name);
     }
 
-    public static PromptComannd getPromptComannd() {
+    public static Console getPromptComannd() {
         return prompt;
     }
 

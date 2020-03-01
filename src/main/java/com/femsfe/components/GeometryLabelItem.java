@@ -1,11 +1,15 @@
-package com.femsfe;
+package com.femsfe.components;
 
 import com.femsfe.Geometries.Geometry2D;
 import javafx.scene.control.Label;
 
-class GeometryLabelItem extends Label {
+public class GeometryLabelItem extends Label {
 
     private Geometry2D geometry2d;
+
+    public GeometryLabelItem(String name) {
+         this.setText(name);
+    }
 
     public GeometryLabelItem(Geometry2D geometry, String name) {
         this.geometry2d = geometry;

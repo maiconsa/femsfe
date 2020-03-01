@@ -1,5 +1,6 @@
-package com.femsfe;
+package com.femsfe.components;
 
+import com.femsfe.App;
 import com.femsfe.Geometries.Arc2D;
 import com.femsfe.Geometries.Geometry2D;
 import com.femsfe.Geometries.Circle2D;
@@ -8,6 +9,9 @@ import com.femsfe.Geometries.Material;
 import com.femsfe.Geometries.Line2D;
 import com.femsfe.Geometries.BezierCurve2D;
 import com.femsfe.Geometries.Point2D;
+import com.femsfe.Project;
+import com.femsfe.RepositoryMaterials;
+import com.femsfe.Wavelenght;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
@@ -29,6 +34,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 public final class TreeViewProject extends TreeView<GeometryLabelItem> {
@@ -44,14 +50,14 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
 
     public TreeViewProject() {
 
-        root = new TreeItem<>(new GeometryLabelItem(null, "Project Hierarchy"), new ImageView(new Image(getClass().getResource("icon/repository_20x20.png").toExternalForm())));
-        rootProbType = new TreeItem<>(new GeometryLabelItem(null, "Problem Type"), new ImageView(new Image(getClass().getResource("icon/prob_type_16x16.png").toExternalForm())));
-        rootPoints = new TreeItem<>(new GeometryLabelItem(null, "Points"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
-        rootLines = new TreeItem<>(new GeometryLabelItem(null, "Lines"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
-        rootArcs = new TreeItem<>(new GeometryLabelItem(null, "Arcs"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
-        rootBeziers = new TreeItem<>(new GeometryLabelItem(null, "Bezier"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
-        rootFaces = new TreeItem<>(new GeometryLabelItem(null, "Faces"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
-        rootCircles = new TreeItem<>(new GeometryLabelItem(null, "Circles"), new ImageView(new Image(getClass().getResource("icon/geometry_16x16.png").toExternalForm())));
+        root = new TreeItem<>(new GeometryLabelItem("Project Hierarchy"), new ImageView(new Image(App.class.getResource("icon/repository_20x20.png").toExternalForm())));
+        rootProbType = new TreeItem<>(new GeometryLabelItem("Problem Type"), new ImageView(new Image(App.class.getResource("icon/prob_type_16x16.png").toExternalForm())));
+        rootPoints = new TreeItem<>(new GeometryLabelItem( "Points"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
+        rootLines = new TreeItem<>(new GeometryLabelItem("Lines"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
+        rootArcs = new TreeItem<>(new GeometryLabelItem("Arcs"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
+        rootBeziers = new TreeItem<>(new GeometryLabelItem("Bezier"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
+        rootFaces = new TreeItem<>(new GeometryLabelItem("Faces"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
+        rootCircles = new TreeItem<>(new GeometryLabelItem("Circles"), new ImageView(new Image(App.class.getResource("icon/geometry_16x16.png").toExternalForm())));
 
         this.setRoot(root);
         root.setExpanded(true);
@@ -89,24 +95,24 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
         type.setValue(new GeometryLabelItem(null, "Type: " + Project.getProblemType().toString()));
         switch (Project.getProblemType()) {
             case ELETROSTATIC:
-                url = getClass().getResource("icon/eletrostatic_16x16.png");
+                url = App.class.getResource("icon/eletrostatic_16x16.png");
                 type.setGraphic(new ImageView(new Image(url.toExternalForm())));
                 variable.setValue(new GeometryLabelItem(null, "Variable: Eletric Potencial(V)"));
                 break;
             case MAGNETOSTATIC_VECTOR_POTENTIAL:
-                url = getClass().getResource("/icon/magnetostatic_16x16.png");
+                url = App.class.getResource("/icon/magnetostatic_16x16.png");
                 type.setGraphic(new ImageView(new Image(url.toExternalForm())));
                 variable.setValue(new GeometryLabelItem(null, "Variable: Magnetic Vector Potencial(A)"));
 
                 break;
             case MAGNETOSTATIC_SCALAR_POTENTIAL:
-                url = getClass().getResource("/icon/magnetostatic_16x16.png");
+                url = App.class.getResource("icon/magnetostatic_16x16.png");
                 type.setGraphic(new ImageView(new Image(url.toExternalForm())));
                 variable.setValue(new GeometryLabelItem(null, "Variable: Magnetic Scalar Potencial(A)"));
 
                 break;
             case HELMHOLTZ_TE_MODE:
-                url = getClass().getResource("/icon/wave_16x16.png");
+                url = App.class.getResource("icon/wave_16x16.png");
                 type.setGraphic(new ImageView(new Image(url.toExternalForm())));
                 variable.setValue(new GeometryLabelItem(null, "Variable: Eletric Field (Ez)"));
 
@@ -117,7 +123,7 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
 
                 break;
             case HELMHOLTZ_TM_MODE:
-                url = getClass().getResource("/icon/wave_16x16.png");
+                url = App.class.getResource("icon/wave_16x16.png");
                 type.setGraphic(new ImageView(new Image(url.toExternalForm())));
                 variable.setValue(new GeometryLabelItem(null, "Variable: Magnetic Field (Hz)"));
 
@@ -143,7 +149,7 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
             points.get(i).setID(i);
             treeItem = new TreeItem<>();
             treeItem.setValue(new GeometryLabelItem(points.get(i), " Point " + i + ": (" + points.get(i).getX() + "," + points.get(i).getY() + ")"));
-            treeItem.setGraphic(new ImageView(new Image(getClass().getResource("icon/point_16x16.png").toExternalForm())));
+            treeItem.setGraphic(new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm())));
             items.add(treeItem);
         }
         rootPoints.getChildren().setAll(items);
@@ -156,12 +162,12 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
         for (int i = 0; i < lines.size(); i++) {
             Line2D line = lines.get(i);
             line.setID(i);
-            lineItem = new TreeItem<>(new GeometryLabelItem(line, "Line " + i), new ImageView(new Image(getClass().getResource("/resources/icon/line_16x16.png").toExternalForm())));
+            lineItem = new TreeItem<>(new GeometryLabelItem(line, "Line " + i), new ImageView(new Image(App.class.getResource("icon/line_16x16.png").toExternalForm())));
             pointItem = new TreeItem<>(new GeometryLabelItem(line.getP0(), " Point " + 0 + ": (" + line.getP0().getX() + "," + line.getP0().getY() + ")"),
-                    new ImageView(new Image(getClass().getResource("/icon/point_16x16.png").toExternalForm())));
+                    new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm())));
             lineItem.getChildren().add(pointItem);
             pointItem = new TreeItem<>(new GeometryLabelItem(line.getP1(), " Point " + 1 + ": (" + line.getP1().getX() + "," + line.getP1().getY() + ")"),
-                    new ImageView(new Image(getClass().getResource("/icon/point_16x16.png").toExternalForm())));
+                    new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm())));
             lineItem.getChildren().add(pointItem);
             items.add(lineItem);
         }
@@ -178,12 +184,12 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
         for (int i = 0; i < arcs.size(); i++) {
             Arc2D arc = arcs.get(i);
             arc.setID(i);
-            arcItem = new TreeItem<>(new GeometryLabelItem(arc, " Arc " + i), new ImageView(new Image(getClass().getResourceAsStream("/resources/icon/arc_16x16.png"))));
+            arcItem = new TreeItem<>(new GeometryLabelItem(arc, " Arc " + i), new ImageView(new Image(App.class.getResourceAsStream("icon/arc_16x16.png"))));
             pointItem = new TreeItem<>(new GeometryLabelItem(arc.getStartPoint(), " Start Point: (" + arc.getStartPoint().getX() + "," + arc.getStartPoint().getY() + ")"),
-                    new ImageView(new Image(getClass().getResource("/icon/point_16x16.png").toExternalForm())));
+                    new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm())));
             arcItem.getChildren().add(pointItem);
             pointItem = new TreeItem<>(new GeometryLabelItem(arc.getEndPoint(), " End Point: (" + arc.getEndPoint().getX() + "," + arc.getEndPoint().getY() + ")"),
-                    new ImageView(new Image(getClass().getResource("/icon/point_16x16.png").toExternalForm())));
+                    new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm())));
             arcItem.getChildren().add(pointItem);
             items.add(arcItem);
         }
@@ -197,11 +203,11 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
         for (int i = 0; i < beziers.size(); i++) {
             BezierCurve2D bezier = beziers.get(i);
             bezier.setID(i);
-            bezierItem = new TreeItem<>(new GeometryLabelItem(bezier, " Bezier " + i), new ImageView(new Image(getClass().getResourceAsStream("/resources/icon/bezier_curve_16x16.png"))));
+            bezierItem = new TreeItem<>(new GeometryLabelItem(bezier, " Bezier " + i), new ImageView(new Image(App.class.getResourceAsStream("icon/bezier_curve_16x16.png"))));
             for (Point2D point2d : bezier.getControlPoints()) {
                 pointItem = new TreeItem<>(
                         new GeometryLabelItem(point2d, " Control Point : (" + point2d.getX() + "," + point2d.getY() + ")"),
-                        new ImageView(new Image(getClass().getResource("/icon/point_16x16.png").toExternalForm()))
+                        new ImageView(new Image(App.class.getResource("icon/point_16x16.png").toExternalForm()))
                 );
                 bezierItem.getChildren().add(pointItem);
             }
@@ -217,10 +223,10 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
         for (int i = 0; i < circles.size(); i++) {
             Circle2D circle = circles.get(i);
             circle.setID(i);
-            circleItem = new TreeItem<>(new GeometryLabelItem(circle, " Circle " + i), new ImageView(new Image(getClass().getResourceAsStream("/resources/icon/circle_16x16.png"))));
+            circleItem = new TreeItem<>(new GeometryLabelItem(circle, " Circle " + i), new ImageView(new Image(App.class.getResourceAsStream("icon/circle_16x16.png"))));
             item = new TreeItem<>(new GeometryLabelItem(null, " Radius:" + circle.getRadius()));
             circleItem.getChildren().add(item);
-            item = new TreeItem<>(new GeometryLabelItem(null, " Center Point : (" + circle.getCenterPoint().getX() + "," + circle.getCenterPoint().getY() + ")"), new ImageView(new Image(getClass().getResourceAsStream("/resources/icon/point_16x16.png"))));
+            item = new TreeItem<>(new GeometryLabelItem(null, " Center Point : (" + circle.getCenterPoint().getX() + "," + circle.getCenterPoint().getY() + ")"), new ImageView(new Image(App.class.getResourceAsStream("icon/point_16x16.png"))));
             circleItem.getChildren().add(item);
 
             items.add(circleItem);
@@ -251,7 +257,7 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
                 default:
                     break;
             }
-            faceItem = new TreeItem<>(new GeometryLabelItem(face, " Face " + i + "  - Type: " + type), new ImageView(new Image(getClass().getResourceAsStream("/resources/icon/face_16x16.png"))));
+            faceItem = new TreeItem<>(new GeometryLabelItem(face, " Face " + i + "  - Type: " + type), new ImageView(new Image(App.class.getResourceAsStream("icon/face_16x16.png"))));
             if (face.getMaterial() != null) {
                 materialItem = new TreeItem<>(new GeometryLabelItem(null, "Material: " + face.getMaterial().getName()));
             } else {
@@ -282,10 +288,7 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
             if (newG != null) {
                 newG.setSelected(true);
             }
-
             TableView table = (TableView) App.scene.getRoot().lookup("#propertiesTable");
-
-        
             TableColumn propCol = (TableColumn) table.getColumns().get(0);
             propCol.setEditable(false);
             propCol.setSortable(false);
@@ -296,8 +299,12 @@ public final class TreeViewProject extends TreeView<GeometryLabelItem> {
             valCol.setSortable(false);
             propCol.setCellValueFactory(new PairKeyFactory());
             valCol.setCellValueFactory(new PairValueFactory());
-            valCol.setCellFactory((TableColumn<Pair<String, Object>, Object> column) -> new PairValueCell());
-
+            valCol.setCellFactory(new Callback<TableColumn<Pair<String, Object>, Object>, TableCell<Pair<String, Object>, Object>>() {
+                @Override
+                public TableCell<Pair<String, Object>, Object> call(TableColumn<Pair<String, Object>, Object> column) {
+                    return new PairValueCell();
+                }
+            });
             List<Pair<String, Object>> list = new ArrayList<>();
             ObservableList<Pair<String, Object>> data;
 
